@@ -16,6 +16,15 @@ const AddMovie = () => {
             .catch((err) => console.error(err));
     }
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+            setMovie({ ...movie, posterImage: reader.result });
+        };
+        reader.readAsDataURL(file);
+    };
+
     return (
         <form onSubmit={handleSubmit}>
             <input
@@ -31,10 +40,9 @@ const AddMovie = () => {
                 onChange={(e) => setMovie({ ...movie, year: e.target.value })}
             />
             <input
-                type="text"
-                placeholder="Poster URL"
-                value={movie.posterImage}
-                onChange={(e) => setMovie({ ...movie, posterImage: e.target.value })}
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
             />
             <button type="submit">Add Movie</button>
         </form>
