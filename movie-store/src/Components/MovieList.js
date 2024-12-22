@@ -11,6 +11,14 @@ const MovieList = () => {
             .catch((err) => console.error(err));
     }, []);
 
+    const handleDelete = (id) => {
+        if (window.confirm('Are you sure you want to delete this movie?')) {
+            axios.delete(`${process.env.REACT_APP_API_URL}/movies/${id}`)
+                .then(() => setMovies(movies.filter((movie) => movie.id !== id)))
+                .catch((err) => console.error(err));
+        }
+    };
+
     return (
         <div>
             <h1>Movies</h1>
@@ -23,6 +31,7 @@ const MovieList = () => {
                         <Link to={`/update/${movie.id}`}>
                             <button>Edit</button>
                         </Link>
+                        <button onClick={() => handleDelete(movie.id)}>Delete</button>
                     </li>
                 ))}
             </ul>
