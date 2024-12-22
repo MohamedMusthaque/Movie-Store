@@ -22,6 +22,9 @@ const MovieList = () => {
     return (
         <div>
             <h1>Movies</h1>
+            <Link to="/add">
+                <button style={{ marginBottom: '20px' }}>Add Movie</button>
+            </Link>
             <ul>
                 {movies.map((movie) => (
                     <li key={movie.id}>
